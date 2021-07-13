@@ -22,10 +22,7 @@ jobs:
     displayName: 'Install dependencies'
 
   - script: |
-      pip install pytest
-      pip install pytest-cov
       python -m pytest --junitxml=junit/test-results.xml --cov=src --cov-report=xml --cov-report=html tests/unit
-
     displayName: 'pytest'
 
   - task: PublishTestResults@2
