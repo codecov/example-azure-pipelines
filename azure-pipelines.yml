@@ -35,7 +35,10 @@ jobs:
     condition: succeededOrFailed()
 
   - script: |
-      bash <(curl https://codecov.io/bash) -t 2e94c02d-e60d-4115-9fad-ac1571be0d86 -f coverage.xml -F adder -F subtractor
+      curl -Os https://uploader.codecov.io/latest/linux/codecov
+      chmod +x codecov
+      ./codecov -f coverage.xml -F adder -F subtractor
+
     displayName: 'codecov'
 
   - task: PublishCodeCoverageResults@1
