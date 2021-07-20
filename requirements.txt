@@ -1,5 +1,1 @@
-psycopg2
-codecov
 coverage
-pytest
-pytest-cov

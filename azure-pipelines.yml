@@ -22,11 +22,9 @@ jobs:
     displayName: 'Install dependencies'
 
   - script: |
-      pip install pytest
-      pip install pytest-cov
-      python -m pytest --junitxml=junit/test-results.xml --cov=src --cov-report=xml --cov-report=html tests/unit
-
-    displayName: 'pytest'
+      coverage run -m unittest discover
+      coverage xml
+    displayName: 'coverage'
 
   - task: PublishTestResults@2
     inputs:
@@ -35,7 +33,10 @@ jobs:
     condition: succeededOrFailed()
 
   - script: |
-      bash <(curl https://codecov.io/bash) -t 2e94c02d-e60d-4115-9fad-ac1571be0d86 -f coverage.xml -F adder -F subtractor
+      curl -Os https://uploader.codecov.io/latest/linux/codecov
+      chmod +x codecov
+      ./codecov -f coverage.xml -F adder -F subtractor
+
     displayName: 'codecov'
 
   - task: PublishCodeCoverageResults@1
